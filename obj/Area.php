@@ -1,25 +1,30 @@
 <?php
 class Area{
-	private $Rarity = "Common";
-	private $Discovery = "None";
-	private $Danger = "None";
-	private $Themed = "No";
-	private $Type = array();
+	private $rarity = "Common";
+	private $discovery = "None";
+	private $danger = "None";
+	private $themed = "No";
+	private $type = array();
 
 	public function __construct(){
 		$this->AreaTypeContents();
 		$this->MainGenerator();
 	}
 	public function Print_Area(){
-		echo "<h2>AREA:</h2>";
-		echo "Themed: " . $this->Themed . "<br>";
-		echo "Rarity: " . $this->Rarity . "<br>";
-		echo "Discovery: <br>&emsp;" . $this->Discovery . "<br>";
-		echo "Danger: <br>&emsp;" . $this->Danger . "<br>";
+		$ret = "";
+		
+		$ret .= "<h2>AREA:</h2>";
+		$ret .= "Themed: " . $this->Themed . "<br />";
+		$ret .= "Rarity: " . $this->Rarity . "<br />";
+		$ret .= "Discovery: <br>&emsp;" . $this->Discovery . "<br />";
+		$ret .= "Danger: <br>&emsp;" . $this->Danger . "<br />";
+		
+		//echo($ret);
+		return $ret;
 	}
 
 	private function AreaTypeContents(){
-		$Table = array(
+		$table = array(
 			array("Unthemed", "Common", "", ""), 
 			array("Unthemed", "Common", "", "Danger"), 
 			array("Unthemed", "Common", "Discovery", "Danger"), 
@@ -33,24 +38,24 @@ class Area{
 			array("Themed", "Unique", "Discovery", "Danger"), 
 			array("Themed", "Unique", "Discovery", ""));
 
-		$this->Type = CheckTable($Table);
+		$this->type = CheckTable($table);
 	}
 
 	private function MainGenerator(){
-		$this->Themed = $this->Type[0];
-		$this->Rarity = $this->Type[1];
+		$this->themed = $this->type[0];
+		$this->rarity = $this->type[1];
 
-		if ($this->Type[2] == "Discovery"){
+		if ($this->type[2] === "Discovery"){
 			$this->GenerateDiscovery();
 		}
 
-		if ($this->Type[3] == "Danger"){
+		if ($this->type[3] === "Danger"){
 			$this->GenerateDanger();
 		}
 	}
 
 	private function GenerateDiscovery(){
-		$Table_Discovery_Type = [
+		$table_Discovery_Type = [
 			"Dressing", 
 			"Dressing", 
 			"Dressing", 
@@ -64,7 +69,7 @@ class Area{
 			"Find",
 			"Find"];
 
-		$Table_Dressing = [
+		$table_Dressing = [
 			"Dressing: Junk/debris", 
 			"Dressing: Tracks/marks", 
 			"Dressing: Signs of battle", 
@@ -78,7 +83,7 @@ class Area{
 			"Dressing: Lichen/moss/fungus", 
 			"Dressing: Oddity (p50)"];
 
-		$Table_Feature = [
+		$table_Feature = [
 			"Feature: Cave-in/collapse", 
 			"Feature: Pit/shaft/chasm", 
 			"Feature: Pillars/columns", 
@@ -92,7 +97,7 @@ class Area{
 			"Feature: Magic pool/statue/idol", 
 			"Feature: Connection to another dungeon"];
 
-		$Table_Find = [
+		$table_Find = [
 			"Find: Trinkets", 
 			"Find: Tools", 
 			"Find: Weapons/armor", 
@@ -106,24 +111,20 @@ class Area{
 			"Find: Artifact", 
 			"Find: Roll twice"];
 
-		$Discovery = CheckTable($Table_Discovery_Type);
+		$discovery = CheckTable($table_Discovery_Type);
+		$this->discovery = "None";
 
-		if ($Discovery == "Dressing"){
-			$this->Discovery = CheckTable($Table_Dressing);
-		}
-		elseif ($Discovery == "Feature"){
-			$this->Discovery = CheckTable($Table_Feature);
-		}
-		elseif ($Discovery  == "Find"){
-			$this->Discovery = CheckTable($Table_Find);
-		}
-		else{
-			$this->Discovery = "None";
+		if ($discovery === "Dressing"){
+			$this->discovery = CheckTable($table_Dressing);
+		}elseif ($discovery === "Feature"){
+			$this->discovery = CheckTable($table_Feature);
+		}elseif ($Discovery  === "Find"){
+			$this->discovery = CheckTable($table_Find);
 		}
 	}
 
 	private function GenerateDanger(){
-		$Table_Danger_Type = array(
+		$table_Danger_Type = array(
 			"Trap", 
 			"Trap", 
 			"Trap", 
@@ -137,7 +138,7 @@ class Area{
 			"Creature (pag 49)", 
 			"Entity");
 
-		$Table_Traps = array(
+		$table_Traps = array(
 			"Trap: Alarm", 
 			"Trap: Ensnaring/paralyzing", 
 			"Trap: Pit", 
@@ -151,7 +152,7 @@ class Area{
 			"Trap: Magical", 
 			"Trap: Roll twice");
 
-		$Table_Creatures = array(
+		$table_Creatures = array(
 			"Creature: Waiting in ambush", 
 			"Creature: Fighting/squabbling", 
 			"Creature: Prowling/on patrol", 
@@ -165,7 +166,7 @@ class Area{
 			"Creature: Sleeping", 
 			"Creature: Dying");
 
-		$Table_Entity = array(
+		$table_Entity = array(
 			"Entity: Alien interloper", 
 			"Entity: Vermin lord", 
 			"Entity: Criminal mastermind", 
@@ -179,19 +180,15 @@ class Area{
 			"Entity: Demon", 
 			"Entity: Dark god");
 
-		$Danger = CheckTable($Table_Danger_Type);
+		$danger = CheckTable($table_Danger_Type);
+		$this->Danger = "None";
 
-		if ($Danger == "Trap"){
-			$this->Danger = CheckTable($Table_Traps);
-		}
-		elseif ($Danger == "Creature (pag 49)"){
-			$this->Danger = CheckTable($Table_Creatures);
-		}
-		elseif ($Danger  == "Entity"){
-			$this->Danger = CheckTable($Table_Entity);
-		}
-		else{
-			$this->Danger = "None";
+		if ($danger === "Trap"){
+			$this->danger = CheckTable($table_Traps);
+		}elseif ($danger === "Creature (pag 49)"){
+			$this->danger = CheckTable($table_Creatures);
+		}elseif ($danger  === "Entity"){
+			$this->danger = CheckTable($table_Entity);
 		}
 	}
 }
