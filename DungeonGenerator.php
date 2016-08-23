@@ -7,7 +7,9 @@
 <?php
 include_once './kernel.php';
 
-_main();
+$body = _main();
+
+echo($body);
 ?>
 </body>
 </html> 
