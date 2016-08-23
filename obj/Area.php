@@ -55,7 +55,7 @@ class Area{
 	}
 
 	private function GenerateDiscovery(){
-		$table_Discovery_Type = [
+		$table_Discovery_Type = array(
 			"Dressing", 
 			"Dressing", 
 			"Dressing", 
@@ -67,9 +67,9 @@ class Area{
 			"Feature", 
 			"Find",
 			"Find",
-			"Find"];
+			"Find");
 
-		$table_Dressing = [
+		$table_Dressing = array(
 			"Dressing: Junk/debris", 
 			"Dressing: Tracks/marks", 
 			"Dressing: Signs of battle", 
@@ -81,9 +81,9 @@ class Area{
 			"Dressing: Broken door/wall", 
 			"Dressing: Breeze/wind/smell", 
 			"Dressing: Lichen/moss/fungus", 
-			"Dressing: Oddity (p50)"];
+			"Dressing: Oddity (p50)");
 
-		$table_Feature = [
+		$table_Feature = array(
 			"Feature: Cave-in/collapse", 
 			"Feature: Pit/shaft/chasm", 
 			"Feature: Pillars/columns", 
@@ -95,9 +95,9 @@ class Area{
 			"Feature: Altar/dais/platform", 
 			"Feature: Statue/idol", 
 			"Feature: Magic pool/statue/idol", 
-			"Feature: Connection to another dungeon"];
+			"Feature: Connection to another dungeon");
 
-		$table_Find = [
+		$table_Find = array(
 			"Find: Trinkets", 
 			"Find: Tools", 
 			"Find: Weapons/armor", 
@@ -109,7 +109,7 @@ class Area{
 			"Find: Scroll/book", 
 			"Find: Magic weapon/armor", 
 			"Find: Artifact", 
-			"Find: Roll twice"];
+			"Find: Roll twice");
 
 		$discovery = CheckTable($table_Discovery_Type);
 		$this->discovery = "None";
@@ -181,7 +181,7 @@ class Area{
 			"Entity: Dark god");
 
 		$danger = CheckTable($table_Danger_Type);
-		$this->Danger = "None";
+		$this->danger = "None";
 
 		if ($danger === "Trap"){
 			$this->danger = CheckTable($table_Traps);
